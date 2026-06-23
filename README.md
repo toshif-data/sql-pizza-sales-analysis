@@ -50,6 +50,7 @@ This project analyzes pizza sales data using SQL to uncover valuable business in
 ### Additional Analysis
 
 14. Which day of the week generated the highest revenue?
+15. What is the average order value?
     
 ## Tools Used
 
