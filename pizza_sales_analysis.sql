@@ -172,3 +172,21 @@ join order_details
 on order_details.pizza_id = pizzas.pizza_id
 group by pizza_types.category, pizza_types.name) as a) as b
 where rn <= 3;
+
+
+-- ==========================================
+-- ADDITIONAL ANALYSIS
+-- ==========================================
+
+-- Q14. Which day of the week generated the highest revenue?
+
+SELECT DAYNAME(orders.order_date) AS day_name,
+       SUM(order_details.quantity * pizzas.price) AS revenue
+FROM order_details
+JOIN pizzas
+ON order_details.pizza_id = pizzas.pizza_id
+JOIN orders
+ON orders.order_id = order_details.order_id
+GROUP BY day_name
+ORDER BY revenue DESC
+LIMIT 1;
