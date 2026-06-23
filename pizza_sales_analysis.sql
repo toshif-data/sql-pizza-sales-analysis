@@ -205,3 +205,41 @@ FROM
     JOIN pizzas ON order_details.pizza_id = pizzas.pizza_id
     GROUP BY order_details.order_id) AS order_totals;
     
+    
+-- Q16. Which pizza category has the highest average order quantity?
+
+SELECT 
+    category, AVG(total_quantity) AS avg_order_quantity
+FROM
+    (SELECT 
+        order_details.order_id,
+            pizza_types.category,
+            SUM(order_details.quantity) AS total_quantity
+    FROM
+        order_details
+    JOIN pizzas ON order_details.pizza_id = pizzas.pizza_id
+    JOIN pizza_types ON pizza_types.pizza_type_id = pizzas.pizza_type_id
+    GROUP BY order_details.order_id , pizza_types.category) AS category_orders
+GROUP BY category
+ORDER BY avg_order_quantity DESC LIMIT 1;
+
+
+-- Q17. Which pizza generated the highest revenue on weekends?
+
+SELECT 
+    pizza_types.name,
+    SUM(order_details.quantity * pizzas.price) AS revenue
+FROM
+    order_details
+        JOIN
+    pizzas ON order_details.pizza_id = pizzas.pizza_id
+        JOIN
+    orders ON orders.order_id = order_details.order_id
+        JOIN
+    pizza_types ON pizza_types.pizza_type_id = pizzas.pizza_type_id
+WHERE
+    DAYNAME(orders.order_date) IN ('Saturday' , 'Sunday')
+GROUP BY pizza_types.name
+ORDER BY revenue DESC
+LIMIT 1;
+    
