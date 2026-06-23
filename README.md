@@ -47,6 +47,10 @@ This project analyzes pizza sales data using SQL to uncover valuable business in
 12. Cumulative revenue analysis
 13. Top 3 pizza types by revenue within each category
 
+### Additional Analysis
+
+14. Which day of the week generated the highest revenue?
+    
 ## Tools Used
 
 * MySQL Workbench
